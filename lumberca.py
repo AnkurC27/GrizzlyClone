@@ -109,6 +109,8 @@ for index, row in lumber_df.iterrows():
         wait_time = 3
         if "buildclub.com" in vendor_url:
             wait_time = 8
+        if "homedepot.com" in vendor_url:
+            wait_time = 8
         
         time.sleep(wait_time)
 
