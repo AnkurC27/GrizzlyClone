@@ -12,7 +12,7 @@ from selenium.common.exceptions import TimeoutException
 
 
 # load the excel file
-excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\ratesmaster(1)2023.xlsx'
+excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.xlsx'
 rates_df = pd.read_excel(excel_file_path)
 
 # set up selenium with edge
@@ -125,22 +125,6 @@ for index, row in rates_df.iterrows():
         add_watermark(screenshot_filename, item_number, description)
         driver.delete_all_cookies()
         screenshot_filenames.append(screenshot_filename)
-
-# Paste screenshot to pdf 
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-
-date_str = datetime.datetime.now().strftime("%m.%d.%Y")
-c = canvas.Canvas(f"Rates Screenshots {date_str}.pdf", pagesize=letter)
-
-page_width, page_height = letter 
-
-for screenshot_filename in screenshot_filenames:
-    with Image.open(screenshot_filename) as img:
-        img_width, img_height = img.size
-    c.drawImage(screenshot_filename, 50, 500, width=500, height=300)
-    c.showPage()
-
 
 # Close the web driver
 driver.quit()

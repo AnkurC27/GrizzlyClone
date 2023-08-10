@@ -10,7 +10,7 @@ from urllib.parse import urlparse
 from PIL import Image, ImageDraw, ImageFont
 
 # load the excel file
-excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\linksca.xlsx'
+excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone\excel\linksca.xlsx'
 lumber_df = pd.read_excel(excel_file_path)
 
 # set up selenium with edge

@@ -6,7 +6,7 @@ from PIL import Image
 import datetime
 
 # Define the parent directory where the folders are located
-parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject'
+parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone'
 
 # Iterate through each folder in the parent directory
 for folder_name in os.listdir(parent_dir):
