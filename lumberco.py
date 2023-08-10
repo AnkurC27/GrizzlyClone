@@ -109,6 +109,8 @@ for index, row in lumber_df.iterrows():
             wait_time = 15
         if "schillings.com" in vendor_url:
             wait_time = 10 
+        if "homedepot.com" in vendor_url:
+            wait_time = 5
         time.sleep(wait_time)
 
         description = str(row[desc_col_index]).replace('\'', '_').replace('\"', '_').replace('-', ' ').replace('/', '_')
