@@ -1,7 +1,7 @@
 import os
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfbase import pdfmetrics 
+from reportlab.pdfbase import pdfmetrics
 from PIL import Image
 import datetime
 
@@ -10,7 +10,6 @@ parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone'
 
 # Iterate through each folder in the parent directory
 for folder_name in os.listdir(parent_dir):
-    
     # Check if folder name starts with a number
     if folder_name[0].isdigit():
         folder_path = os.path.join(parent_dir, folder_name)
@@ -34,18 +33,18 @@ for folder_name in os.listdir(parent_dir):
                             img_width, img_height = img.size
                             width = page_width - 2*50
                             height = width * img_height / img_width
-                            if height > page_height - 2*50:
+                            if height > page_height - 3*50:  # 3*50 to account for filename space at the top
                                 # Image is too tall; adjust size by height instead of width
-                                height = page_height - 2*50
+                                height = page_height - 3*50
                                 width = height * img_width / img_height
-                                
-                            # Draw image on the canvas
-                            c.drawImage(file_path, 50, page_height - 50 - height, width=width, height=height)
 
-                            #Draw the file name on the canvas
+                            # Draw the file name on the canvas at the top
                             c.setFont("Helvetica", 10)
                             text_width = pdfmetrics.stringWidth(file_name, "Helvetica", 10)
-                            c.drawString((page_width - text_width) / 2, page_height / 2, file_name)
+                            c.drawString((page_width - text_width) / 2, page_height - 30, file_name)  # 30 is the margin for text at the top
+                            
+                            # Draw image on the canvas just below the text
+                            c.drawImage(file_path, 50, page_height - 80 - height, width=width, height=height)  # 80 is the combined space for text and margin
 
                             c.showPage()
 
@@ -53,3 +52,4 @@ for folder_name in os.listdir(parent_dir):
                         print(f"Could not process file {file_name}. Error: {str(e)}")
                         
             c.save()
+
