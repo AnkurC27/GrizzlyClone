@@ -31,6 +31,23 @@ link_col_index_3 = rates_df.columns.get_loc('Link3')
 item_col_index = rates_df.columns.get_loc('Item#')
 desc_col_index = rates_df.columns.get_loc('Description')
 
+def determine_folder(item_number):
+    # Check the prefix of the item number
+    if item_number.startswith(('M', 'D', 'H', 'BAT')) or item_number[0].isdigit():
+        return 'Consumables'
+    elif item_number.startswith('S'):
+        return 'Saftey'
+    elif item_number.startswith('A'):
+        return 'Apparel'
+    elif item_number.startswith('G'):
+        return 'Signs'
+    elif item_number.startswith('COMP'):
+        return 'COMP'
+    else:
+        # Default folder if none of the conditions match. 
+        # Can be adjusted 
+        return 'Other'
+
 
 def add_watermark(screenshot_filename, item_number, description):
     img = Image.open(screenshot_filename)
@@ -84,7 +101,7 @@ for index, row in rates_df.iterrows():
 
     # create a folder with the date to store screenshots
     date_str = datetime.datetime.now().strftime("%m.%d.%Y")
-    folder_name = str(int(item_number/100)*100)
+    folder_name = determine_folder(item_number)
 
     if not os.path.exists(folder_name):
         try:
