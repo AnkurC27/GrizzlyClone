@@ -12,7 +12,7 @@ from selenium.common.exceptions import TimeoutException
 
 
 # load the excel file
-excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone\excel\SalesMaster2024.xlsx'
+excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\SalesMaster2024.xlsx'
 sheet_to_read = "ScriptLinks"
 rates_df = pd.read_excel(excel_file_path, sheet_name=sheet_to_read)
 
@@ -33,16 +33,17 @@ item_col_index = rates_df.columns.get_loc('Item#')
 desc_col_index = rates_df.columns.get_loc('Description')
 
 def determine_folder(item_number):
+    item_str = str(item_number)
     # Check the prefix of the item number
-    if item_number.startswith(('M', 'D', 'H', 'BAT')) or item_number[0].isdigit():
+    if item_str.startswith(('M', 'D', 'H', 'BAT')) or item_number[0].isdigit():
         return 'Consumables'
-    elif item_number.startswith('S'):
+    elif item_str.startswith('S'):
         return 'Saftey'
-    elif item_number.startswith('A'):
+    elif item_str.startswith('A'):
         return 'Apparel'
-    elif item_number.startswith('G'):
+    elif item_str.startswith('G'):
         return 'Signs'
-    elif item_number.startswith('COMP'):
+    elif item_str.startswith('COMP'):
         return 'COMP'
     else:
         # Default folder if none of the conditions match. 
