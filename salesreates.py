@@ -35,7 +35,7 @@ desc_col_index = rates_df.columns.get_loc('Description')
 def determine_folder(item_number):
     item_str = str(item_number)
     # Check the prefix of the item number
-    if item_str.startswith(('M', 'D', 'H', 'BAT')) or item_number[0].isdigit():
+    if item_str.startswith(('M', 'D', 'H', 'BAT')) or item_str[0].isdigit():
         return 'Consumables'
     elif item_str.startswith('S'):
         return 'Saftey'
