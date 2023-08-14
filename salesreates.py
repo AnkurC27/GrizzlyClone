@@ -12,8 +12,9 @@ from selenium.common.exceptions import TimeoutException
 
 
 # load the excel file
-excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone\excel\salesratesmaster2023.xlsx'
-rates_df = pd.read_excel(excel_file_path)
+excel_file_path = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone\excel\SalesMaster2024.xlsx'
+sheet_to_read = "ScriptLinks"
+rates_df = pd.read_excel(excel_file_path, sheet_name=sheet_to_read)
 
 # set up selenium with edge
 edgedriver_path = r'C:\Users\ankur.chadha\desktop\msedgedriver'
