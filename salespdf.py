@@ -52,4 +52,3 @@ for folder_name in os.listdir(parent_dir):
                         print(f"Could not process file {file_name}. Error: {str(e)}")
                         
             c.save()
-
