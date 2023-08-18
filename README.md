@@ -1,4 +1,4 @@
-# GrizzlyClone
+# GrizzlyClone is a mirror image of the original #GrizzlyProject 
 
 Battery.py is a script meant for the rental rates that handles items with battery numbers
 you can run this script in place of "rentalrates.py" because it knows to group items that have battery add ons. This script has all of the 
@@ -22,3 +22,6 @@ with the screenshots.
 
 Salesrates.py is the script that mirrors the rentalrates.py script but changes the categories of folders that the screenshots are stored into to mirror the different
 categories of sales items. Has the funcitonality of the rental rates script with the watermark and border around the screenshot. 
+
+#IMPORTANT - do not have the script take screenshots and pdfs and then push those up to github. They will be uploaded but it will prevent you from pushing
+new changes to github. 
