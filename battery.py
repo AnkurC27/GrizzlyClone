@@ -6,6 +6,7 @@ import os
 import time
 import datetime
 from urllib.parse import urlparse
+from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 
 EXCEL_FILE_PATH = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.xlsx'
@@ -62,15 +63,18 @@ def add_watermark(screenshot_filename, item_number, description):
 
 
 # 5. Screenshot Handling Function
-def handle_screenshot(driver, folder_name, item_number, description, vendor_url, index):
+def handle_screenshot(driver, folder_name, item_number, description, vendor_url, index, is_battery_item):
     parsed_url = urlparse(vendor_url)
     vendor_netloc = parsed_url.netloc
     parts = vendor_netloc.split('.')
     vendor_name = parts[1]
     
+    # Add 'Battery' prefix in filename for Battery items
+    filename_prefix = "Battery_" if is_battery_item else ""
+    
     print(f"Processing URL: {vendor_url}, Vendor: {vendor_name}")
 
-    screenshot_filename = f'{folder_name}/{item_number}_{description}_{vendor_name}_{index}.png'
+    screenshot_filename = f'{folder_name}/{filename_prefix}{item_number}_{description}_{vendor_name}_{index}.png'
     driver.save_screenshot(screenshot_filename)
     add_watermark(screenshot_filename, item_number, description)
     
@@ -95,17 +99,19 @@ def process_links(driver, rates_df):
         vendors = [link_1, link_2, link_3, battery]
         
         folder_name = str(int(item_number / 100) * 100)
-
-        if not pd.isna(battery) and str(battery).strip():
+        is_battery_item = not pd.isna(battery) and str(battery).strip()
+        
+        # Determine the appropriate directory for the screenshots
+        if is_battery_item:
             battery_items_path = os.path.join(os.getcwd(), BATTERY_ITEMS_DIR)
             create_directory(battery_items_path)
             
             item_folder_path = os.path.join(battery_items_path, folder_name)
             create_directory(item_folder_path)
+        else:
+            create_directory(folder_name)
         
-        create_directory(folder_name)
-        
-        for vendor_url in vendors:
+        for vendor_idx, vendor_url in enumerate(vendors):
             if pd.isna(vendor_url) or not str(vendor_url).strip():
                 continue
             
@@ -115,9 +121,12 @@ def process_links(driver, rates_df):
             except TimeoutException:
                 print(f"Timed out waiting for the page to load: {vendor_url}")
                 continue
-
+            
             time.sleep(10)
-            screenshot_filename = handle_screenshot(driver, folder_name, item_number, description, vendor_url, index)
+            
+            # Use item_folder_path as folder_name for Battery items
+            screenshot_folder = item_folder_path if is_battery_item and vendor_idx == 3 else folder_name
+            screenshot_filename = handle_screenshot(driver, screenshot_folder, item_number, description, vendor_url, index, is_battery_item and vendor_idx == 3)
             screenshot_filenames.append(screenshot_filename)
             driver.delete_all_cookies()
             
