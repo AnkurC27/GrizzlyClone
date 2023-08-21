@@ -6,7 +6,6 @@ import os
 import time
 import datetime
 from urllib.parse import urlparse
-from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 
 EXCEL_FILE_PATH = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.xlsx'
