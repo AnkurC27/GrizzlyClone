@@ -4,6 +4,10 @@ Battery.py is a script meant for the rental rates that handles items with batter
 you can run this script in place of "rentalrates.py" because it knows to group items that have battery add ons. This script has all of the 
 functionality of rental rates but is more organized. Yet to be tested but code looks good. 
 
+Batterypdf.py is a scrip that pastes the "battery items" to a pdf. This script will group items by their item number and paste the corresponding battery screenshot onto 
+a page with the screenshot of the part. The part screenshot will be on top and the battery will be on the bottom. This script assumes that there is only one battery 
+per part. Based on the functionality of the "Battery.py" script, these items should be separately grouped beforehand. 
+
 Lumberca.py is a script that iterrates through the california lumber links and posts the screenshots onto a pdf
 
 Lumberco.py is a scrip that iterrates through the colorado lumber links and posts the screenshots onto a pdf
