@@ -14,8 +14,8 @@ Rentalpdf.py is the script that takes all screenshots stored in the item number 
 
 Rentalrates.py this is the script that has ran through and taken the rental screenshots. This has a wait time of 10 seconds and stores the screenshots
 in a folder in the range its item number. For example, screenshots of '1182' will be stored in the '1100s' folder. The filename for each screenshot
-is based on the description and item number, it also includes the vendor from where the screenshot was taken. This also adds a watermark that can 
-be customized. The watermark displays the time/date of screenshot and the item description. 
+is based on the description and item number, it also includes the vendor from where the screenshot was taken. Rentalrates.py adds a watermark on each screenshot 
+that can be customized. The watermark displays the time and date of when the screenshot was taken.  
 
 Salespdf.py is the script that pastes the sales screenshots to a pdf. There will be pdf files for each of the categories of sales items. The pdf will be stored in that folder along 
 with the screenshots. 
@@ -23,5 +23,5 @@ with the screenshots.
 Salesrates.py is the script that mirrors the rentalrates.py script but changes the categories of folders that the screenshots are stored into to mirror the different
 categories of sales items. Has the funcitonality of the rental rates script with the watermark and border around the screenshot. 
 
-#IMPORTANT - do not have the script take screenshots and pdfs and then push those up to github. They will be uploaded but it will prevent you from pushing
-new changes to github. 
+#IMPORTANT - do not have the script take screenshots and pdfs and then push those up to github. They will be uploaded and it will prevent you from pushing
+new changes to github. Delete the files after moving them to a different folder locally or uploading them to Egnyte before committing changes to the code.
