@@ -8,12 +8,12 @@ import datetime
 def get_item_number_from_filename(filename):
     """Extract the item number from the filename."""
     parts = filename.split('_')
-    if "battery" in filename.lower():
+    if "addon" in filename.lower():
         return parts[1]  # The structure is expected to be like "battery_ITEMNUMBER_description_vendor_index.png"
     return parts[0]  # The structure is expected to be like "ITEMNUMBER_description_vendor_index.png"
 
 # Define the parent directory where the folders are located
-parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\BatteryItems'
+parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\AddOns'
 
 # Iterate through each folder in the parent directory
 for folder_name in os.listdir(parent_dir):
@@ -40,8 +40,8 @@ for folder_name in os.listdir(parent_dir):
 
             for item_number, files in grouped_files.items():
                 if len(files) > 1:  # This ensures that there is at least a battery and a part screenshot.
-                    part_file = [f for f in files if "battery" not in f.lower()][0]  # Take the first non-battery screenshot as the part screenshot.
-                    battery_file = [f for f in files if "battery" in f.lower()][0]  # Take the first battery screenshot.
+                    part_file = [f for f in files if "Addon" not in f.lower()][0]  # Take the first non-battery/addon screenshot as the part screenshot.
+                    addon_file = [f for f in files if "Addon" in f.lower()][0]  # Take the first addon screenshot.
 
                     # Draw the part image.
                     with Image.open(part_file) as img:
@@ -53,15 +53,15 @@ for folder_name in os.listdir(parent_dir):
                             width = height * img_width / img_height
                         c.drawImage(part_file, 50, page_height - 80 - height, width=width, height=height)  # 80 is the space for text at the top
 
-                    # Draw the battery image.
-                    with Image.open(battery_file) as img:
+                    # Draw the addon image.
+                    with Image.open(addon_file) as img:
                         img_width, img_height = img.size
                         width = page_width - 2*50
                         height = (page_height / 2 - 3*50) * img_height / img_width  # Adjust for half page height.
                         if height > page_height / 2 - 3*50:
                             height = page_height / 2 - 3*50
                             width = height * img_width / img_height
-                        c.drawImage(battery_file, 50, page_height / 2 - 30 - height, width=width, height=height)  # Adjusted position for half page.
+                        c.drawImage(addon_file, 50, page_height / 2 - 30 - height, width=width, height=height)  # Adjusted position for half page.
 
                     c.showPage()
                         
