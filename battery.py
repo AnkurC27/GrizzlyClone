@@ -11,7 +11,7 @@ from selenium.common.exceptions import TimeoutException
 EXCEL_FILE_PATH = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.xlsx'
 SHEET_NAME = "New Links"
 EDGE_DRIVER_PATH = r'C:\Users\ankur.chadha\desktop\msedgedriver'
-BATTERY_ITEMS_DIR = "Battery Items"
+ADDED_ITEMS_DIR = "AddOns"
 
 
 # 2. Configuration Setup
@@ -62,14 +62,14 @@ def add_watermark(screenshot_filename, item_number, description):
 
 
 # 5. Screenshot Handling Function
-def handle_screenshot(driver, folder_name, item_number, description, vendor_url, index, is_battery_item):
+def handle_screenshot(driver, folder_name, item_number, description, vendor_url, index, is_added_item):
     parsed_url = urlparse(vendor_url)
     vendor_netloc = parsed_url.netloc
     parts = vendor_netloc.split('.')
     vendor_name = parts[1]
     
-    # Add 'Battery' prefix in filename for Battery items
-    filename_prefix = "Battery_" if is_battery_item else ""
+    # Add 'Addon' prefix in filename for Addon items
+    filename_prefix = "Addon_" if is_added_item else ""
     
     print(f"Processing URL: {vendor_url}, Vendor: {vendor_name}")
 
@@ -88,24 +88,24 @@ def process_links(driver, rates_df):
         link_1 = row['Link1']
         link_2 = row['Link2']
         link_3 = row['Link3']
-        battery = row['Battery']
+        added_item = row['AddOn']
         item_number = row['Item#']
         description = str(row['Description'])
         
         if pd.isnull(item_number):
             break
         
-        vendors = [link_1, link_2, link_3, battery]
+        vendors = [link_1, link_2, link_3, added_item]
         
         folder_name = str(int(item_number / 100) * 100)
-        is_battery_item = not pd.isna(battery) and str(battery).strip()
+        is_added_item = not pd.isna(added_item) and str(added_item).strip()
         
         # Determine the appropriate directory for the screenshots
-        if is_battery_item:
-            battery_items_path = os.path.join(os.getcwd(), BATTERY_ITEMS_DIR)
-            create_directory(battery_items_path)
+        if is_added_item:
+            added_items_path = os.path.join(os.getcwd(), ADDED_ITEMS_DIR)
+            create_directory(added_items_path)
             
-            item_folder_path = os.path.join(battery_items_path, folder_name)
+            item_folder_path = os.path.join(added_items_path, folder_name)
             create_directory(item_folder_path)
         else:
             create_directory(folder_name)
@@ -124,8 +124,8 @@ def process_links(driver, rates_df):
             time.sleep(10)
             
             # Use item_folder_path as folder_name for Battery items
-            screenshot_folder = item_folder_path if is_battery_item and vendor_idx == 3 else folder_name
-            screenshot_filename = handle_screenshot(driver, screenshot_folder, item_number, description, vendor_url, index, is_battery_item and vendor_idx == 3)
+            screenshot_folder = item_folder_path if is_added_item and vendor_idx == 3 else folder_name
+            screenshot_filename = handle_screenshot(driver, screenshot_folder, item_number, description, vendor_url, index, is_added_item and vendor_idx == 3)
             screenshot_filenames.append(screenshot_filename)
             driver.delete_all_cookies()
             
