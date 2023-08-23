@@ -122,6 +122,8 @@ def process_links(driver, rates_df):
                 continue
             
             time.sleep(10)
+
+            description = str(row['Description']).replace('\'', '_').replace('\"', '_').replace('-', ' ').replace('/', '_').replace('&','')
             
             # Use item_folder_path as folder_name for Addon items
             screenshot_folder = item_folder_path if is_added_item and vendor_idx == 3 else folder_name
