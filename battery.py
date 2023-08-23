@@ -27,11 +27,10 @@ def setup_selenium():
 def create_directory(path):
     if not os.path.exists(path):
         try:
-            os.mkdir(path)
+            os.makedirs(path, exist_ok=True)
             print(f"Directory '{path}' created.")
         except Exception as e:
             print(f"Could not create directory. Error: {str(e)}")
-
 
 # 4. Watermarking Function
 def add_watermark(screenshot_filename, item_number, description):
