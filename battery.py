@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from selenium.common.exceptions import TimeoutException
 
 EXCEL_FILE_PATH = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.xlsx'
-SHEET_NAME = "New Links"
+SHEET_NAME = "2024 Rate Links"
 EDGE_DRIVER_PATH = r'C:\Users\ankur.chadha\desktop\msedgedriver'
 ADDED_ITEMS_DIR = "AddOns"
 
@@ -123,7 +123,7 @@ def process_links(driver, rates_df):
             
             time.sleep(10)
             
-            # Use item_folder_path as folder_name for Battery items
+            # Use item_folder_path as folder_name for Addon items
             screenshot_folder = item_folder_path if is_added_item and vendor_idx == 3 else folder_name
             screenshot_filename = handle_screenshot(driver, screenshot_folder, item_number, description, vendor_url, index, is_added_item and vendor_idx == 3)
             screenshot_filenames.append(screenshot_filename)
