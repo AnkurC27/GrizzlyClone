@@ -102,13 +102,11 @@ def process_links(driver, rates_df):
         
         # Determine the appropriate directory for the screenshots
         if is_added_item:
-            added_items_path = os.path.join(os.getcwd(), ADDED_ITEMS_DIR)
+            added_items_path = os.path.join(os.getcwd(), ADDED_ITEMS_DIR, folder_name)
             create_directory(added_items_path)
-            
-            item_folder_path = os.path.join(added_items_path, folder_name)
-            create_directory(item_folder_path)
         else:
-            create_directory(folder_name)
+            regular_folder_path = os.path.join(os.getcwd(), folder_name)
+            create_directory(regular_folder_path)
         
         for vendor_idx, vendor_url in enumerate(vendors):
             if pd.isna(vendor_url) or not str(vendor_url).strip():
@@ -125,8 +123,8 @@ def process_links(driver, rates_df):
 
             description = str(row['Description']).replace('\'', '_').replace('\"', '_').replace('-', ' ').replace('/', '_').replace('&','')
             
-            # Use item_folder_path as folder_name for Addon items
-            screenshot_folder = item_folder_path if is_added_item and vendor_idx == 3 else folder_name
+            # Use added_items_path as folder_name for items with Addons, otherwise use regular_folder_path
+            screenshot_folder = added_items_path if is_added_item else regular_folder_path
             screenshot_filename = handle_screenshot(driver, screenshot_folder, item_number, description, vendor_url, index, is_added_item and vendor_idx == 3)
             screenshot_filenames.append(screenshot_filename)
             driver.delete_all_cookies()

@@ -13,7 +13,7 @@ def get_item_number_from_filename(filename):
     return parts[0]  # The structure is expected to be like "ITEMNUMBER_description_vendor_index.png"
 
 # Define the parent directory where the folders are located
-parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\AddOns'
+parent_dir = r'C:\Users\ankur.chadha\Desktop\GrizzlyClone\AddOns'
 
 # Iterate through each folder in the parent directory
 for folder_name in os.listdir(parent_dir):
