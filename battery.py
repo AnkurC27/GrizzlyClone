@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 from selenium.common.exceptions import TimeoutException
 
 EXCEL_FILE_PATH = r'C:\Users\ankur.chadha\Desktop\GrizzlyProject\excel\RatesMaster2024.V2.xlsx'
-SHEET_NAME = "2024 Rate Links"
+SHEET_NAME = "2024 Rate Filter"
 EDGE_DRIVER_PATH = r'C:\Users\ankur.chadha\desktop\msedgedriver'
 ADDED_ITEMS_DIR = "AddOns"
 
